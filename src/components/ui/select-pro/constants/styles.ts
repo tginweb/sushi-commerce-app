@@ -1,0 +1,16 @@
+export const SHAPE = 4;
+export const FONT_SIZE = 14;
+export const BORDER_WIDTH = 1;
+export const PADDING = 12;
+export const OPTIONS_LIST_HEIGHT = 1020;
+export const ITEM_HEIGHT = 40;
+export const ANIMATION_DURATION = 200;
+export const PRESSED_STYLE = { opacity: 0.7 };
+
+export const COLORS = {
+    WHITE: '#ffffff',
+    DISABLED: '#e0e0e0',
+    SELECTED: '#f1f3f4',
+    BLACK: '#000000',
+    GRAY: '#808080',
+};

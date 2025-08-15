@@ -1,0 +1,91 @@
+import React from "react"
+import {StyleSheet} from "react-native"
+import {TFilterControlProps} from "@core/main/types";
+import {OptionType, Select} from "~ui/select-pro";
+import {View} from "react-native-ui-lib";
+import {UiTextField} from "~ui/text-field";
+import {UiPicker} from "~ui/picker";
+
+export type TFilterControlSelectProps = TFilterControlProps
+
+export const FilterControlSelect: React.FC<TFilterControlSelectProps> = (props) => {
+
+    const {
+        value,
+        filter,
+        onChange,
+        container
+    } = props
+
+    const options = filter.options || []
+
+    const valueComp = filter.multiple ? (value && Array.isArray(value) ? value : []) : value
+
+    const onSelect = (option: OptionType<any>) => {
+        if (onChange) {
+            onChange(option.value)
+        }
+    }
+    return <View {...container}>
+
+        <UiPicker
+            value={value}
+            useDialog={true}
+            onChange={handleChange}
+            ref={(r) => fieldsRef.current[fieldPath] = r}
+            renderPicker={(selectedValue: any, selectedLabel: string) => {
+                return <UiTextField
+                    presets={['outline', 'sm']}
+                    placeholder={item.label}
+                    floatingPlaceholder={true}
+                    value={selectedLabel}
+                    readonly={true}
+                    containerStyle={{
+                        marginTop: -10
+                    }}
+                    {...item.inputProps}
+                />
+            }}
+            {...item.modifiers}
+            {...item.props}
+        />
+
+        <Select
+            inputProps={{}}
+            multiple={filter.multiple}
+            onSelect={onSelect}
+            options={filter.options as any}
+            clearable={false}
+            hideArrow={true}
+            styles={{
+
+                select: {
+                    container: {
+                        width: 230,
+
+                    },
+                    text: {
+                        fontSize: 16,
+                        lineHeight: 16,
+
+                        borderColor: '#000000',
+                        borderWidth: 1,
+                        textAlign: 'right'
+                    }
+                },
+                optionsList: {
+                    width: 300
+                },
+                option: {
+                    container: {},
+                    text: {
+                        fontSize: 16
+                    }
+                }
+            }}
+            defaultOption={options.find(item => item.value === valueComp) as any}
+        />
+    </View>
+}
+
+const styles = StyleSheet.create({})

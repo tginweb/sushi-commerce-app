@@ -1,0 +1,165 @@
+import {SharedValue} from 'react-native-reanimated';
+import {ImageProps, ImageStyle, StyleProp, TextStyle, ViewStyle,} from 'react-native';
+import {InstagramStoryProps} from './instagramStoriesDTO';
+import {ProgressStorageProps} from './helpersDTO';
+import {ContentTypes} from "~ui/stories/core/types";
+
+export interface StoryAvatarProps extends InstagramStoryProps {
+    loadingStory?: SharedValue<string | undefined>;
+    seenStories?: SharedValue<ProgressStorageProps>;
+    onPress: () => void;
+    colors: string[];
+    seenColors?: string[];
+    size: number;
+    showName?: boolean;
+    nameTextStyle?: TextStyle;
+    showLoading?: boolean
+}
+
+export interface StoryLoaderProps {
+    style?: StyleProp<ViewStyle>
+    loading: SharedValue<boolean>;
+    color: SharedValue<string[]>;
+    size?: number;
+}
+
+export interface StoryModalProps {
+    stories: InstagramStoryProps[];
+    seenStories: SharedValue<ProgressStorageProps>;
+    duration: number;
+    videoDuration?: number;
+    storyAvatarSize: number;
+    textStyle?: TextStyle;
+    containerStyle?: ViewStyle;
+    backgroundColor?: string;
+    videoProps?: any;
+    closeIconColor: string;
+    progressActiveColor?: string;
+    progressColor?: string;
+    modalAnimationDuration?: number;
+    mediaContainerStyle?: ViewStyle;
+    imageStyles?: ImageStyle;
+    imageProps?: ImageProps;
+    onLoad: () => void;
+    onShow?: (id: string) => void;
+    onHide?: (id: string) => void;
+    onSeenStoriesChange: (user: string, value: string) => void;
+    onSwipeUp?: (userId?: string, storyId?: string) => void;
+    onStoryStart?: (userId?: string, storyId?: string) => void;
+    onStoryEnd?: (userId?: string, storyId?: string) => void;
+    listScroll?: any
+}
+
+export type StoryModalPublicMethods = {
+    show: (id: string) => void;
+    hide: () => void;
+    pause: () => void;
+    resume: () => void;
+    getCurrentStory: () => { userId?: string, storyId?: string };
+};
+
+export type GestureContext = {
+    x: number,
+    pressedX: number,
+    pressedAt: number,
+    moving: boolean,
+    vertical: boolean,
+    userId?: string,
+};
+
+export interface AnimationProps {
+    children: React.ReactNode;
+    x: SharedValue<number>;
+    index: number;
+}
+
+export interface StoryImageProps {
+    stories: InstagramStoryProps['stories'];
+    activeStory: SharedValue<string | undefined>;
+    contentType: ContentTypes
+    content: string
+    bgColor: string
+    paused: SharedValue<boolean>;
+    videoProps?: any;
+    mediaContainerStyle?: ViewStyle;
+    isActive: SharedValue<boolean>;
+    imageStyles?: ImageStyle;
+    imageProps?: ImageProps;
+    onImageLayout: (height: number) => void;
+    onLoad: (duration?: number) => void;
+}
+
+export interface StoryProgressProps {
+    allStories: InstagramStoryProps[];
+    activeOfferId: SharedValue<string>;
+    activeOfferIndex?: number;
+    activeSlideIndex: SharedValue<number>;
+    progress: SharedValue<number>;
+    active: SharedValue<boolean>;
+    length: number;
+    progressActiveColor?: string;
+    progressColor?: string;
+    containerWidth?: any
+}
+
+export interface StoryProgressItemProps {
+    progress: SharedValue<number>;
+    index: number
+    activeIndex: SharedValue<number>;
+    width: number;
+    progressActiveColor?: string;
+    progressColor?: string;
+}
+
+export interface StoryHeaderProps {
+    imgUrl?: string;
+    name?: string;
+    avatarSize: number;
+    textStyle?: TextStyle;
+    closeColor: string;
+    onClose: () => void;
+}
+
+export interface IconProps {
+    color: string;
+}
+
+export interface StoryContentProps {
+    stories: InstagramStoryProps['stories'];
+    active: SharedValue<boolean>;
+    activeStory: SharedValue<string | undefined>;
+}
+
+export interface StoryListProps extends InstagramStoryProps, StoryHeaderProps {
+    index: number;
+    x: SharedValue<number>;
+    activeUser: SharedValue<string | undefined>;
+    activeStory: SharedValue<string | undefined>;
+    progress: SharedValue<number>;
+    seenStories: SharedValue<ProgressStorageProps>;
+    paused: SharedValue<boolean>;
+    videoProps?: any;
+    progressActiveColor?: string;
+    progressColor?: string;
+    mediaContainerStyle?: ViewStyle;
+    imageStyles?: ImageStyle;
+    imageProps?: ImageProps;
+    onLoad: (duration?: number) => void;
+    listScroll?: any
+    allStories: InstagramStoryProps[]
+}
+
+export interface StoryVideoProps {
+    uri: string;
+    paused: SharedValue<boolean>;
+    isActive: SharedValue<boolean>;
+    onLoad: (duration: number) => void;
+    onLayout: (height: number) => void;
+}
+
+export type TProgressItem = {
+    state: 'seen' | 'current' | 'next'
+    offerId?: string
+    offerIndex?: number
+    slideIndex?: number
+}
